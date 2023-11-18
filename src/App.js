@@ -1,25 +1,50 @@
-import logo from './logo.svg';
-import './App.css';
+import NotesList from "./components/NotesList"
+import { nanoid } from "nanoid"
+import { useState } from "react"
 
-function App() {
+const App = () => {
+  const [notes, setNotes] = useState([
+    {
+      id: nanoid(),
+      text: "this is my first note",
+      date: "12/05/2023"
+    },
+    {
+      id: nanoid(),
+      text: "this is my second note",
+      date: "12/05/2023"
+    },
+    {
+      id: nanoid(),
+      text: "this is my third note",
+      date: "12/05/2023"
+    },
+    {
+      id: nanoid(),
+      text: "this is my new note",
+      date: "12/09/2023"
+    }
+  ])
+
+  const addNote = (text) => {
+    const date = new Date()
+
+    const newNote = {
+      id: nanoid(),
+      text: text,
+      date: date.toLocaleDateString()
+    }
+
+    const newNotes = [...notes, newNote]
+
+    setNotes(newNotes)
+  }
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className="max-w-[100rem] mx-auto px-6">
+      <NotesList notes={notes} addNote={addNote}/>
     </div>
-  );
+  )
 }
 
-export default App;
+export default App
